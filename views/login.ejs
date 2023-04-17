@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+</head>
+<body>
+	<h1>Login</h1>
+	<% if (error) { %>
+		<p style="color: red"><%= error %></p>
+	<% } %>
+	<form method="post" action="/login">
+		<label for="email">Email:</label>
+		<input type="email" id="email" name="email" required>
+		<br>
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password" required>
+		<br>
+		<label for="role">Role:</label>
+		<select id="role" name="role" required>
+			<option value="admin">admin</option>
+			<option value="user">teacher</option>
+      <option value="user">student</option>
+		</select>
+		<br>
+		<button type="submit">Login</button>
+	</form>
+</body>
+</html>
+
+
