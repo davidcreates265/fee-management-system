@@ -7,6 +7,9 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+app.set('view engine', 'ejs');
+
+
 // Set up session middleware
 app.use(session({
   secret: 'secret',
@@ -97,5 +100,49 @@ app.get('/dashboard/student', (req, res) => {
     res.redirect('/');
   }
 });
+
+// Render create user form for admin
+app.get('/create-user', (req, res) => {
+  res.render('create-user', { error: null });
+});
+
+// Handle create user form submission
+app.post('/create-user', async (req, res) => {
+  const { email, password, role } = req.body;
+  console.log(req.body);
+  try {
+    // Check if user with same email already exists in database
+    const userExists = await User.findOne({ email: email });
+    if (userExists) {
+      return res.render('create-user', { error: 'User already exists with this email' });
+    }
+    // Create new user object
+    const newUser = new User({
+      email,
+      password,
+      role
+    });
+    // Save new user to database
+    await newUser.save();
+    // Redirect to admin dashboard
+    res.redirect('/dashboard/admin');
+  } catch (err) {
+    console.error(err);
+    res.render('create-user', { error: 'Error creating user' });
+  }
+});
+
+app.get('/create-user', function(req, res) {
+  // query the database for all users
+  User.find({}, function(err, users) {
+    if (err) {
+      console.log(err);
+      return res.status(500).send('Error retrieving users from database');
+    }
+    // render the create-user page and pass the retrieved users to it
+    res.render('create-user', {users: users});
+  });
+});
+
 
 app.listen(3000, () => console.log('Server started on port 3000'));
