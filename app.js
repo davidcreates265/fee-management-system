@@ -28,6 +28,7 @@ mongoose.connect("mongodb://localhost:27017/feeManagementSystemDB", { useNewUrlP
 
 // Define user schema and model
 const userSchema = new mongoose.Schema({
+  name: String,
   email: String,
   password: String,
   role: String,
@@ -102,13 +103,19 @@ app.get('/dashboard/student', (req, res) => {
 });
 
 // Render create user form for admin
-app.get('/create-user', (req, res) => {
-  res.render('create-user', { error: null });
+app.get('/create-user', async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.render('create-user', { users: users, user: req.session.user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error retrieving users from database');
+  }
 });
 
 // Handle create user form submission
 app.post('/create-user', async (req, res) => {
-  const { email, password, role } = req.body;
+  const {name, email, password, role } = req.body;
   console.log(req.body);
   try {
     // Check if user with same email already exists in database
@@ -118,30 +125,20 @@ app.post('/create-user', async (req, res) => {
     }
     // Create new user object
     const newUser = new User({
+      name,
       email,
       password,
       role
     });
     // Save new user to database
     await newUser.save();
+    console.log(newUser);
     // Redirect to admin dashboard
     res.redirect('/dashboard/admin');
   } catch (err) {
     console.error(err);
     res.render('create-user', { error: 'Error creating user' });
   }
-});
-
-app.get('/create-user', function(req, res) {
-  // query the database for all users
-  User.find({}, function(err, users) {
-    if (err) {
-      console.log(err);
-      return res.status(500).send('Error retrieving users from database');
-    }
-    // render the create-user page and pass the retrieved users to it
-    res.render('create-user', {users: users});
-  });
 });
 
 
