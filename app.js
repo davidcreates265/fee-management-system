@@ -59,8 +59,8 @@ app.post('/login', async (req, res) => {
       // Redirect user to appropriate dashboard based on role
       if (user.role === 'admin') {
         res.redirect('/dashboard/admin');
-      } else if (user.role === 'teacher') {
-        res.redirect('/dashboard/teacher');
+      } else if (user.role === 'principal') {
+        res.redirect('/dashboard/principal');
       } else if (user.role === 'student') {
         res.redirect('/dashboard/student');
       } else {
@@ -84,10 +84,10 @@ app.get('/dashboard/admin', (req, res) => {
   }
 });
 
-app.get('/dashboard/teacher', (req, res) => {
+app.get('/dashboard/principal', (req, res) => {
   const user = req.session.user;
-  if (user && user.role === 'teacher') {
-    res.render('dashboard_teacher.ejs');
+  if (user && user.role === 'principal') {
+    res.render('dashboard_principal.ejs');
   } else {
     res.redirect('/');
   }
