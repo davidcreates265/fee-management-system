@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Edit School Year</title>
+</head>
+<body>
+  <h1>Edit School Year</h1>
+  <form method="POST" action="/school-year/edit/<%= schoolYear._id %>">
+    <div>
+      <label for="startYear">Start Year</label>
+      <input type="text" name="startYear" id="startYear" value="<%= schoolYear.startYear %>">
+    </div>
+    <div>
+      <label for="endYear">End Year</label>
+      <input type="text" name="endYear" id="endYear" value="<%= schoolYear.endYear %>">
+    </div>
+    <div>
+      <label for="term1Months">Term 1 Months</label>
+      <input type="number" name="term1Months" id="term1Months" value="<%= schoolYear.term1Months %>">
+    </div>
+    <div>
+      <label for="term2Months">Term 2 Months</label>
+      <input type="number" name="term2Months" id="term2Months" value="<%= schoolYear.term2Months %>">
+    </div>
+    <div>
+      <label for="term3Months">Term 3 Months</label>
+      <input type="number" name="term3Months" id="term3Months" value="<%= schoolYear.term3Months %>">
+    </div>
+    <div>
+      <label for="primaryFees">Primary Fees</label>
+      <input type="number" name="primaryFees" id="primaryFees" value="<%= schoolYear.primaryFees %>">
+    </div>
+    <div>
+      <label for="secondaryFees">Secondary Fees</label>
+      <input type="number" name="secondaryFees" id="secondaryFees" value="<%= schoolYear.secondaryFees %>">
+    </div>
+    <div>
+      <input type="submit" value="Update School Year">
+    </div>
+  </form>
+</body>
+</html>

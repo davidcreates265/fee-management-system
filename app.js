@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const mongoose = require('mongoose');
-
+const SchoolYear = require('./models/schoolYear');
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -140,6 +140,94 @@ app.post('/create-user', async (req, res) => {
     res.render('create-user', { error: 'Error creating user' });
   }
 });
+
+
+// Render principal dashboard
+app.get('/dashboard/principal', (req, res) => {
+  const user = req.session.user;
+  if (user && user.role === 'principal') {
+    res.render('dashboard_principal.ejs');
+  } else {
+    res.redirect('/');
+  }
+});
+
+
+//school year section - principal
+app.get('/school-years', async (req, res) => {
+  const schoolYears = await SchoolYear.find();
+  res.render('index', { schoolYears });
+});
+
+app.get('/create-school-year', (req, res) => {
+  res.render('createSchoolYear');
+});
+
+app.post('/create-school-year', async (req, res) => {
+  const schoolYear = new SchoolYear({
+    year: req.body.year,
+    primaryFees: req.body.primaryFees,
+    secondaryFees: req.body.secondaryFees,
+    term1Months: req.body.term1Months,
+    term2Months: req.body.term2Months,
+    term3Months: req.body.term3Months
+  });
+  try {
+    await schoolYear.save();
+    res.redirect('/school-years');
+  } catch (err) {
+    console.log(err);
+    res.redirect('/create-school-year');
+  }
+});
+
+app.get('/view-school-years', async (req, res) => {
+  try {
+    const schoolYears = await SchoolYear.find().sort({year: -1});
+    res.render('viewSchoolYears', { schoolYears });
+  } catch (err) {
+    console.log(err);
+    res.redirect('/');
+  }
+});
+
+
+app.get('/school-year/edit/:id', async (req, res) => {
+  const schoolYear = await SchoolYear.findById(req.params.id);
+  res.render('editSchoolYear', { schoolYear });
+});
+
+app.post('/school-year/edit/:id', async (req, res) => {
+  try {
+    await SchoolYear.findByIdAndUpdate(req.params.id, {
+      year: req.body.year,
+      primaryFees: req.body.primaryFees,
+      secondaryFees: req.body.secondaryFees,
+      term1Months: req.body.term1Months,
+      term2Months: req.body.term2Months,
+      term3Months: req.body.term3Months
+    });
+    res.redirect('/school-years');
+  } catch (err) {
+    console.log(err);
+    res.redirect(`/school-year/edit/${req.params.id}`);
+  }
+});
+
+//principal delete year
+// app.js
+
+app.delete('/school-year/delete/:id', async (req, res) => {
+  try {
+    await SchoolYear.findByIdAndDelete(req.params.id);
+    res.redirect('/view-school-years');
+  } catch (err) {
+    console.log(err);
+    res.redirect('/view-school-years');
+  }
+});
+
+
 
 
 app.listen(3000, () => console.log('Server started on port 3000'));

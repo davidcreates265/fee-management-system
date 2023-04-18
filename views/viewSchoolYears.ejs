@@ -1,0 +1,43 @@
+
+<!-- viewSchoolYears.ejs -->
+
+<!-- viewSchoolYears.ejs -->
+
+<h1>School Years</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Primary Fees</th>
+      <th>Secondary Fees</th>
+      <th>Term 1 Months</th>
+      <th>Term 2 Months</th>
+      <th>Term 3 Months</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% schoolYears.forEach(schoolYear => { %>
+    <tr>
+      <td>As of Year:<%= schoolYear.year %></td>
+      <td>MWK <%= schoolYear.primaryFees.toLocaleString() %></td>
+      <td>MWK <%= schoolYear.secondaryFees.toLocaleString() %></td>
+      <td><%= schoolYear.term1Months.toLocaleString() %></td>
+      <td><%= schoolYear.term2Months.toLocaleString() %></td>
+      <td><%= schoolYear.term3Months.toLocaleString() %></td>
+      <td>
+        <form method="GET" action="/school-year/edit/<%= schoolYear._id %>">
+          <button type="submit">Edit</button>
+        </form>
+      </td>
+      <td>
+        <form method="POST" action="/school-year/delete/<%= schoolYear._id %>">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
