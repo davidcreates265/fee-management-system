@@ -41,3 +41,32 @@
     <% }) %>
   </tbody>
 </table>
+
+<label for="year">Select Year:</label>
+<select id="year" name="year">
+  <% schoolYears.forEach(function(schoolYear) { %>
+    <option value="<%= schoolYear.year %>"><%= schoolYear.year %></option>
+  <% }); %>
+</select>
+
+<label for="term1Months">Term 1 Months:</label>
+<select id="term1Months" name="term1Months">
+  <% for(let i = 1; i <= 8; i++) { %>
+    <option value="<%= i %>"><%= i %></option>
+  <% } %>
+</select>
+
+<label for="term2Months">Term 2 Months:</label>
+<select id="term2Months" name="term2Months">
+  <% for(let i = 1; i <= 8; i++) { %>
+    <option value="<%= i %>"><%= i %></option>
+  <% } %>
+</select>
+
+<label for="term3Months">Term 3 Months:</label>
+<select id="term3Months" name="term3Months">
+  <% for(let i = 1; i <= 8; i++) { %>
+    <option value="<%= i %>"><%= i %></option>
+  <% } %>
+</select>
+

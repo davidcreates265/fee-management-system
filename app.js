@@ -8,25 +8,25 @@ const SchoolYear = require('./models/schoolYear');
 const app = express();
 
 app.set('view engine', 'ejs');
+app.use(express.static("public"));
 
 
-// Set up session middleware
+// Setting up session middleware
 app.use(session({
   secret: 'secret',
   resave: false,
   saveUninitialized: false,
 }));
 
-// Set up middleware to parse request body
+// Setting up middleware to parse request body
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Connect to MongoDB
-// Connect to the database
+// Connect to MongoDB 
 mongoose.connect("mongodb://localhost:27017/feeManagementSystemDB", { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('Could not connect to MongoDB', err));
 
-// Define user schema and model
+// User schema and model
 const userSchema = new mongoose.Schema({
   name: String,
   email: String,
@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model('User', userSchema);
 
-// Set up routes
+// Routes
 app.get('/', (req, res) => {
   res.render('login.ejs', { error: null });
 });
@@ -50,13 +50,13 @@ app.post('/login', async (req, res) => {
     }
 
     if (user.password === password) {
-      // Set up session data for authenticated user
+      // Setring up session data for the authenticated user
       req.session.user = {
         email: user.email,
         role: user.role,
       };
 
-      // Redirect user to appropriate dashboard based on role
+      // Redirecting user to the appropriate dashboard based on role
       if (user.role === 'admin') {
         res.redirect('/dashboard/admin');
       } else if (user.role === 'principal') {
@@ -102,7 +102,7 @@ app.get('/dashboard/student', (req, res) => {
   }
 });
 
-// Render create user form for admin
+// Rendering create user form for the admin
 app.get('/create-user', async (req, res) => {
   try {
     const users = await User.find({});
@@ -113,7 +113,7 @@ app.get('/create-user', async (req, res) => {
   }
 });
 
-// Handle create user form submission
+// Handling create user form submission
 app.post('/create-user', async (req, res) => {
   const {name, email, password, role } = req.body;
   console.log(req.body);
@@ -123,17 +123,17 @@ app.post('/create-user', async (req, res) => {
     if (userExists) {
       return res.render('create-user', { error: 'User already exists with this email' });
     }
-    // Create new user object
+    // Create a new user object
     const newUser = new User({
       name,
       email,
       password,
       role
     });
-    // Save new user to database
+    // Saving the new user to the database
     await newUser.save();
     console.log(newUser);
-    // Redirect to admin dashboard
+    // Redirecting to admin dashboard
     res.redirect('/dashboard/admin');
   } catch (err) {
     console.error(err);
@@ -142,7 +142,7 @@ app.post('/create-user', async (req, res) => {
 });
 
 
-// Render principal dashboard
+// Rendering the principal dashboard
 app.get('/dashboard/principal', (req, res) => {
   const user = req.session.user;
   if (user && user.role === 'principal') {
@@ -215,7 +215,6 @@ app.post('/school-year/edit/:id', async (req, res) => {
 });
 
 //principal delete year
-// app.js
 
 app.delete('/school-year/delete/:id', async (req, res) => {
   try {
