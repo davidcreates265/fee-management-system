@@ -1,6 +1,8 @@
 .container-fluid {
     padding-top: 70px;
     padding-bottom: 70px;
+  background-color: #f5f5f5;
+
 }
 .navbar {
     padding-top: 15px;
@@ -75,12 +77,13 @@ body {
 }
 
 .submit-button {
-    background-color: #30a7e1;
+    background-color: #1d4e89;
     border: none;
 }
 
 
 .loginHeadText {
+    color:#1d4e89;
     text-align: center;
 }
 
@@ -88,11 +91,21 @@ body {
     text-align: center;
 }
 
+.dropdown {
+  background-color: none;
+  text-align: left;
+}
+
 #role{
+  text-align: center;
     border: none;
-    border-radius: 1px;
+    border-color: #00b2ca;
+    background-color: #1d4e89;
+    border-radius: 0.5rem;
     font-size: 16px;
-    padding: 4px 4px 4px 4px;
+    padding: 10px 10px 10px 10px;
+    width: fit-content;
+    color: #ffffff;
 }
 
 a {
@@ -100,3 +113,71 @@ a {
     align-items: center;
     background-color: blue;
 }
+
+.searchBar {
+  color: #1d4e89;
+}
+
+.dashboardArea{
+  color: #1d4e89;
+}
+
+.card-body {
+  margin-top: 50px;
+}
+
+.view-users {
+  border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.view-users thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+
+.view-users th,
+.view-users td {
+    padding: 12px 15px;
+}
+
+.view-users tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.view-users tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.view-users tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+#secondHeaderCreateUser {
+  color: #1d4e89;
+  font-weight: 600;
+}
+
+.wholePage {
+float:inline-end;
+}
+
+.firstPartForm {
+  text-align: left;
+}
+
+
+.secondPartTable {
+  float: left;
+}
+
+.table-section {
+  margin-top: 400px;
+
+}
+.
