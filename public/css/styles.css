@@ -123,15 +123,18 @@ a {
 }
 
 .card-body {
-  margin-top: 50px;
+  margin-top: 100%;
 }
 
 .view-users {
+  margin-top: 20px;
   border-collapse: collapse;
+    display:inline-block;
     margin: 25px 0;
     font-size: 0.9em;
     font-family: sans-serif;
     min-width: 400px;
+    text-align: center;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -163,10 +166,6 @@ a {
   font-weight: 600;
 }
 
-.wholePage {
-float:inline-end;
-}
-
 .firstPartForm {
   text-align: left;
 }
@@ -180,4 +179,3 @@ float:inline-end;
   margin-top: 400px;
 
 }
-.
