@@ -10,7 +10,7 @@
     border: 0;
     border-radius: 0;
     margin-bottom: 0;
-    font-size: 12px;
+    font-size: 20px;
     letter-spacing: 5px;
 }
 .navbar-nav  li a:hover {
@@ -43,7 +43,7 @@ body {
 }
 
 body {
-  display: flex;
+  display:grid;
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
@@ -127,8 +127,7 @@ a {
 }
 
 .view-users {
-  margin-top: 20px;
-  border-collapse: collapse;
+    border-collapse: collapse;
     display:inline-block;
     margin: 25px 0;
     font-size: 0.9em;
@@ -137,6 +136,18 @@ a {
     text-align: center;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
+
+.view-school-years {
+  border-collapse: collapse;
+  
+  margin-bottom: 300px;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
 
 .view-users thead tr {
   background-color: #009879;
@@ -161,21 +172,32 @@ a {
   border-bottom: 2px solid #009879;
 }
 
+.wholePage {
+  float: left;
+  width: 100%;
+}
+
 #secondHeaderCreateUser {
   color: #1d4e89;
   font-weight: 600;
+  margin-left: 500px;
+
 }
 
 .firstPartForm {
   text-align: left;
+  width: 20%;
+  float: left;
+  margin-left: 500px;
 }
 
 
 .secondPartTable {
-  float: left;
+  float: right;
+  width: 50%;
 }
 
-.table-section {
-  margin-top: 400px;
 
+.editSchoolyearForm {
+  width: 50%;
 }
