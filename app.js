@@ -22,7 +22,7 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connect to MongoDB 
-mongoose.connect("mongodb://localhost:27017/feeManagementSystemDB", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb+srv://davidcreatesmw:mongoCONNECTTESTING..@cluster0.ovd5cfm.mongodb.net/?retryWrites=true&w=majority/feeManagementSystemDB", { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('Could not connect to MongoDB', err));
 
@@ -225,6 +225,116 @@ app.delete('/school-year/delete/:id', async (req, res) => {
     res.redirect('/view-school-years');
   }
 });
+
+
+// Define a schema for the student model
+const studentSchema = new mongoose.Schema({
+  name: String,
+  age: Number,
+  gender: String,
+  level: String,
+  class: String,
+  fees: Number,
+  status: String,
+});
+
+// Create a model based on the schema
+const Student = mongoose.model('Student', studentSchema);
+
+app.get('/add-new-student', (req, res) => {
+  res.render('addnewStudent');
+});
+
+app.post('/add-new-student', (req, res) => {
+  const newStudent = new Student({
+    name: req.body.name,
+    age: req.body.age,
+    gender: req.body.gender,
+    level: req.body.level,
+    class: req.body.class,
+    fees: req.body.fees,
+    status: req.body.status,
+  });
+
+  newStudent.save();
+  res.redirect('/add-new-student');
+
+});
+
+
+// Routes
+app.get('/generate-report', (req, res) => {
+  res.render('generate-report', { report: undefined });
+});
+
+
+// Function to generate the report
+function generateReport(students) {
+  let report = 'Report:\n\n';
+
+  students.forEach((student, index) => {
+    report += `Student ${index + 1}:\n`;
+    report += `Name: ${student.name}\n`;
+    report += `Level: ${student.level}\n`;
+    report += `Class: ${student.class}\n`;
+    report += `Fees: ${student.fees}\n`;
+    report += `Status: ${student.status}\n\n`;
+  });
+
+  return report;
+}
+
+app.post('/generate-report', async (req, res) => {
+  try {
+    const { level, class: studentClass, status } = req.body;
+
+    let query = {};
+
+    if (level) {
+      query.level = level;
+    }
+
+    if (studentClass) {
+      query.class = studentClass;
+    }
+
+    if (status) {
+      query.status = status;
+    }
+
+    const students = await Student.find(query);
+
+    if (students.length === 0) {
+      return res.render('generate-report', { report: '', level, students: [] });
+    }
+
+    const report = generateReport(students);
+
+    res.render('generate-report', { report, level, students });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while generating the report.');
+  }
+});
+
+
+
+
+
+// Download report
+app.get('/download-report', (req, res) => {
+  const report = req.query.report;
+
+  // Set the content type as plain text
+  res.set('Content-Type', 'text/plain');
+
+  // Set the content disposition header to trigger a download
+  res.set('Content-Disposition', 'attachment; filename="report.txt"');
+
+  // Send the report as the response
+  res.send(report);
+});
+
 
 
 
