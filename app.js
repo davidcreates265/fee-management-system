@@ -22,7 +22,7 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connect to MongoDB 
-mongoose.connect("mongodb+srv://davidcreatesmw:mongoCONNECTTESTING..@cluster0.ovd5cfm.mongodb.net/?retryWrites=true&w=majority/feeManagementSystemDB", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb+srv://davidcreatesmw:mongoCONNECTTESTING..@cluster0.ovd5cfm.mongodb.net/feeManagementSystemDB", { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('Could not connect to MongoDB', err));
 
