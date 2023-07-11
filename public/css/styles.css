@@ -126,6 +126,13 @@ a {
   margin-top: 100%;
 }
 
+/* Links in Principal Dashboard */
+
+.principalLinks {
+  background-color: #009879;
+  padding-top: 20px;
+}
+
 .view-users {
     border-collapse: collapse;
     display:inline-block;
