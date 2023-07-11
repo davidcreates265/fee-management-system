@@ -1,6 +1,8 @@
 .container-fluid {
     padding-top: 70px;
     padding-bottom: 70px;
+  background-color: #f5f5f5;
+
 }
 .navbar {
     padding-top: 15px;
@@ -8,7 +10,7 @@
     border: 0;
     border-radius: 0;
     margin-bottom: 0;
-    font-size: 12px;
+    font-size: 20px;
     letter-spacing: 5px;
 }
 .navbar-nav  li a:hover {
@@ -32,4 +34,270 @@
 	margin-top: 25px;
 	font-size: 12px;
   color: #fff;
+}
+
+/* From Here **/
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display:grid;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.top {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.middle{
+  margin-bottom: -1px;
+  border-radius: 0;
+}
+
+.bottom {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.submit-button {
+    background-color: #1d4e89;
+    border: none;
+}
+
+
+.loginHeadText {
+    color:#1d4e89;
+    text-align: center;
+}
+
+.errorMessage {
+    text-align: center;
+}
+
+.dropdown {
+  background-color: none;
+  text-align: left;
+}
+
+#role{
+  text-align: center;
+    border: none;
+    border-color: #00b2ca;
+    background-color: #1d4e89;
+    border-radius: 0.5rem;
+    font-size: 16px;
+    padding: 10px 10px 10px 10px;
+    width: fit-content;
+    color: #ffffff;
+}
+
+a {
+    text-align: center;
+    align-items: center;
+    background-color: blue;
+}
+
+.searchBar {
+  color: #1d4e89;
+}
+
+.dashboardArea{
+  color: #1d4e89;
+}
+
+.card-body {
+  margin-top: 100%;
+}
+
+/* Links in Principal Dashboard */
+
+.principalLinks {
+  background-color: #009879;
+  padding-top: 20px;
+}
+
+.view-users {
+    border-collapse: collapse;
+    display:inline-block;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.view-school-years {
+  border-collapse: collapse;
+  
+  margin-bottom: 300px;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+
+.view-users thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+
+.view-users th,
+.view-users td {
+    padding: 12px 15px;
+}
+
+.view-users tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.view-users tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.view-users tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.wholePage {
+  float: left;
+  width: 100%;
+}
+
+#secondHeaderCreateUser {
+  color: #1d4e89;
+  font-weight: 600;
+  margin-left: 500px;
+
+}
+
+.firstPartForm {
+  text-align: left;
+  width: 20%;
+  float: left;
+  margin-left: 500px;
+}
+
+
+.secondPartTable {
+  float: right;
+  width: 50%;
+}
+
+
+.editSchoolyearForm {
+  width: 50%;
+}
+
+
+.report-container {
+  background-color: #f7f7f7;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.report-container h2 {
+  margin-bottom: 10px;
+}
+
+.report-content {
+  white-space: pre-wrap;
+}
+
+.report-actions {
+  margin-top: 20px;
+}
+
+.report-actions button,
+.report-actions a {
+  margin-right: 10px;
+}
+
+
+
+.report-container {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.report-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.report-table th,
+.report-table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.report-table th {
+  font-weight: bold;
+  background-color: #f2f2f2;
+}
+
+.no-students {
+  text-align: center;
+  font-style: italic;
+}
+
+.report-actions {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.report-actions button,
+.report-actions a {
+  margin-left: 10px;
+}
+
+@media print {
+.print-button,
+.form-container {
+  display: none;
+}
+}
+
+@media print {
+  .form-container {
+    display: none;
+  }
+}
+
+.form-container {
+  width: 50%;
+  padding-left: 25px;
+  padding-bottom: 25px;
 }
