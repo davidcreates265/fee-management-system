@@ -86,8 +86,9 @@ app.get('/dashboard/admin', (req, res) => {
 
 app.get('/dashboard/principal', (req, res) => {
   const user = req.session.user;
+  const userName = req.session.user.email;
   if (user && user.role === 'principal') {
-    res.render('dashboard_principal.ejs');
+    res.render('dashboard_principal.ejs' , { userName });
   } else {
     res.redirect('/');
   }

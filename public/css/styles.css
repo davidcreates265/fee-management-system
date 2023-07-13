@@ -1,53 +1,132 @@
-.container-fluid {
-    padding-top: 70px;
-    padding-bottom: 70px;
+* {
+  box-sizing: border-box;
+  font-family: "Helvetica", Arial, Helvetica, sans-serif;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Helvetica", Arial, Helvetica, sans-serif;
   background-color: #f5f5f5;
-
-}
-.navbar {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border: 0;
-    border-radius: 0;
-    margin-bottom: 0;
-    font-size: 20px;
-    letter-spacing: 5px;
-}
-.navbar-nav  li a:hover {
-    color: #1abc9c !important;
 }
 
-.footer-padding {
-	padding-bottom: 60px;
+
+
+h1 {
+  font-family: "Helvetica", Arial, Helvetica, sans-serif;
+  font-size: 40px !important;
+  font-weight: bold !important;
+  color: #1d4e89 !important;
 }
 
-.footer {
-	position: absolute;
-	text-align: center;
-	bottom: 0;
-	width: 100%;
-	height: 60px;
-	background-color: #1abc9c;
+h2 {
+  font-family: "Helvetica", Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 600 !important;
+  color: #0088C2 !important;
 }
 
-.footer p {
-	margin-top: 25px;
-	font-size: 12px;
+h4 {
+  font-family: "Helvetica", Arial, Helvetica, sans-serif;
+  font-size: 14px !important ;
+  font-weight: 700 !important;
+  color: #2e1600;
+}
+
+p {
+  font-family: "Helvetica", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #2e1600;
+}
+
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.top-nav {
+  background-color: #1d4e89;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 120px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  position: fixed !important;
   color: #fff;
 }
 
-/* From Here **/
-html,
-body {
-  height: 100%;
+.logo {
+  /* Define styles for your logo */
+  /* Example: */
+  width: 100px;
+  height: 100px;
 }
 
-body {
-  display:grid;
-  align-items: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #f5f5f5;
+.nav-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.nav-links li {
+  margin-left: 10px;
+}
+
+.nav-links li:first-child {
+  margin-left: 0;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+}
+
+
+.carousel {
+  height: 300px;
+  width: 1920px;
+}
+
+.carousel-image-1 {
+  height: 300px;
+  width: 300px;
+}
+
+.footer-padding {
+padding-bottom: 60px;
+}
+
+.footer {
+position:relative;
+text-align: center;
+bottom: 0;
+width: 100%;
+height: 60px;
+background-color: #0088C2;
+}
+
+.footer p {
+margin-top: 25px;
+font-size: 12px;
+color: #fff;
+}
+
+.copyright-footer {
+  text-align: center;
+  place-items: center;
+  padding-top: 25px;
 }
 
 .form-signin {
@@ -77,10 +156,15 @@ body {
 }
 
 .submit-button {
-    background-color: #1d4e89;
+    background-color: #0088C2;
     border: none;
 }
 
+.submit-button:hover {
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #1d4e89;
+}
 
 .loginHeadText {
     color:#1d4e89;
@@ -108,10 +192,33 @@ body {
     color: #ffffff;
 }
 
+
+.girlImageLogin {
+  align-items: first baseline;
+  height: 200px;
+  float: left;
+  display:inline-flex;
+  text-align: center;
+  padding-left: 250px;
+  
+}
+
+
+.loginImagesGirl {
+  float: left;
+  height:500px;
+  width: 500px;
+  text-align: left;
+  
+}
+
+
+
+
 a {
     text-align: center;
     align-items: center;
-    background-color: blue;
+    
 }
 
 .searchBar {
@@ -128,10 +235,54 @@ a {
 
 /* Links in Principal Dashboard */
 
-.principalLinks {
-  background-color: #009879;
-  padding-top: 20px;
+.dashboard-principal-page {
+padding-top: 120px;
 }
+
+.welcome-section {
+  padding-left: 10px;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.principalLinks {
+  padding-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  
+  
+}
+
+
+
+.single-dashboard-container {
+  width:200px;
+    height: 250px;
+    background-color: #1d4e89;
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    float: left;
+    margin: 20px;
+    color: #ffffff;
+}
+
+
+.single-dashboard-container:hover{
+  background-color:  #0088C2;
+  color: #ffffff;
+}
+
+.create-user-page {
+  padding-top: 120px;
+  place-items: center;
+  justify-content: center;
+  
+  
+}
+
 
 .view-users {
     border-collapse: collapse;
@@ -144,9 +295,23 @@ a {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
+.school-year-page{
+  padding-top: 120px;
+  place-items: center;
+  justify-content: center;
+}
+
+.school-year-form {
+  text-align: left;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .view-school-years {
   border-collapse: collapse;
-  
+  padding-top: 120px;
   margin-bottom: 300px;
   font-size: 0.9em;
   font-family: sans-serif;
@@ -179,6 +344,27 @@ a {
   border-bottom: 2px solid #009879;
 }
 
+.add-new-student-page {
+  padding-top: 120px;
+  place-items: center;
+  justify-content: center;
+}
+
+#add-new-student-heading {
+  color: #1d4e89;
+  font-weight: 600;
+  padding-top: 20px;
+  text-align: center; 
+}
+
+.add-new-student-form {
+  text-align: left;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .wholePage {
   float: left;
   width: 100%;
@@ -187,21 +373,34 @@ a {
 #secondHeaderCreateUser {
   color: #1d4e89;
   font-weight: 600;
-  margin-left: 500px;
+  padding-top: 20px;
+  text-align: center;
 
+}
+
+#school-year-header {
+  color: #1d4e89;
+  font-weight: 600;
+  padding-top: 20px;
+  text-align: center;
 }
 
 .firstPartForm {
   text-align: left;
-  width: 20%;
-  float: left;
-  margin-left: 500px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
 .secondPartTable {
-  float: right;
-  width: 50%;
+  
+  width: 100%;
+  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -209,6 +408,20 @@ a {
   width: 50%;
 }
 
+
+.generate-report-page {
+  padding-top: 200px;
+  place-items: center;
+  justify-content: center;
+}
+
+.report-form {
+  text-align: left;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .report-container {
   background-color: #f7f7f7;
