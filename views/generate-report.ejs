@@ -4,10 +4,7 @@
 
 <div class="generate-report-page">
   <h1 id="school-year-header">Generate Report</h1>
-   <div class="report-form">
-
-
-
+  <div class="report-form">
     <form class="form-container" action="/generate-report" method="POST">
       <div class="form-group">
         <label for="level" class="form-label">Level:</label>
@@ -22,20 +19,17 @@
         <label for="class" class="form-label">Class:</label>
         <select class="form-control" name="class">
           <option value="">Select Class</option>
-          
-            <option value="Grade 1">Grade 1</option>
-            <option value="Grade 2">Grade 2</option>
-            <option value="Grade 3">Grade 3</option>
-            <option value="Grade 4">Grade 4</option>
-            <option value="Grade 5">Grade 5</option>
-            <option value="Grade 6">Grade 6</option>
-          
-            <option value="Form 1">Form 1</option>
-            <option value="Form 2">Form 2</option>
-            <option value="Form 3">Form 3</option>
-            <option value="Form 4">Form 4</option>
-            <option value="Form 5">Form 5</option>
-        
+          <option value="Grade 1">Grade 1</option>
+          <option value="Grade 2">Grade 2</option>
+          <option value="Grade 3">Grade 3</option>
+          <option value="Grade 4">Grade 4</option>
+          <option value="Grade 5">Grade 5</option>
+          <option value="Grade 6">Grade 6</option>
+          <option value="Form 1">Form 1</option>
+          <option value="Form 2">Form 2</option>
+          <option value="Form 3">Form 3</option>
+          <option value="Form 4">Form 4</option>
+          <option value="Form 5">Form 5</option>
         </select>
       </div>
   
@@ -47,55 +41,108 @@
           <option value="Pending">Pending</option>
         </select>
       </div>
-   <br />
+      <br />
       <button class="btn btn-primary" type="submit">Generate</button>
     </form>
-    </div>
-    <% if (report !== undefined) { %>
-        <div class="report-container">
-          <h2>Student Fees Report</h2>
-          <% if (report !== '') { %>
-            <table class="report-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Level</th>
-                  <th>Class</th>
-                  <th>Fees</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Loop through the students and display the data in rows -->
-                <% students.forEach((student) => { %>
-                  <tr>
-                    <td><%= student.name %></td>
-                    <td><%= student.level %></td>
-                    <td><%= student.class %></td>
-                    <td><%= student.fees %></td>
-                    <td><%= student.status %></td>
-                  </tr>
-                <% }); %>
-              </tbody>
-            </table>
-          <% } else { %>
-            <p class="no-students">No students found.</p>
-          <% } %>
-          <div class="report-actions">
-            <button onclick="printReport()" class="btn btn-primary print-button">Print</button>
-            
-          </div>
-        </div>
+  </div>
+
+<% if (report !== undefined) { %>
+    <div class="report-container">
+      <h2>Student Fees Report</h2>
+      <% if (students.length > 0) { %>
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Level</th>
+              <th>Class</th>
+              <th>Remaining Balance</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Looping through the filtered students and display the data in rows -->
+            <% students.forEach((student) => { %>
+              <tr>
+                <td><a href="#" onclick="printInvoice('<%= student.name %>', '<%= student.level %>', '<%= student.class %>', <%= student.fees %>, '<%= student.status %>')"> <%= student.name %> </a></td>
+                <td><%= student.level %></td>
+                <td><%= student.class %></td>
+                <td data-fees="<%= student.fees %>"><%= student.fees %></td>
+                <td><%= student.status %></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p class="no-students">No students found.</p>
       <% } %>
-      
+      <div class="report-actions">
+        <button onclick="printReport()" class="btn btn-primary print-button">Print</button>
       </div>
-
-
+    </div>
+  <% } %>
+  <!-- Invoice container for displaying the invoice -->
+  <div class="invoice-container" id="invoiceContainer" style="display: none;"></div>
+</div>
 
 <script>
+  // Function to format the fees as Malawian Kwacha currency
+  function formatFeesAsCurrency(fees) {
+    return fees.toLocaleString('en-MW', {
+      style: 'currency',
+      currency: 'MWK'
+    });
+  }
+
+  // Getting all the "td" elements with fees data
+  const feesElements = document.querySelectorAll('td[data-fees]');
+
+  // Looping through each "td" element and format the fees as currency
+  feesElements.forEach((element) => {
+    const fees = parseFloat(element.getAttribute('data-fees'));
+    if (!isNaN(fees)) {
+      const formattedFees = formatFeesAsCurrency(fees);
+      element.textContent = formattedFees;
+    }
+  });
+
+  function generateInvoiceContent(name, level, className, fees, status) {
+    const invoiceContent = `
+    <div class="invoice-container">
+      <h1>Invoice for ${name}</h1>
+      <p>Level: ${level}</p>
+      <p>Class: ${className}</p>
+      <p>Remaining Balance: ${formatFeesAsCurrency(fees)}</p>
+      <p>Status: ${status}</p>
+      <!-- Add any other invoice details you want to display -->
+       </div>
+    `;
+
+    return invoiceContent;
+  }
+
+  function printInvoiceWindow(invoiceContent) {
+    const invoiceWindow = window.open('', '_blank');
+    invoiceWindow.document.write(invoiceContent);
+    invoiceWindow.document.close();
+    invoiceWindow.print();
+  }
+
+  function printInvoice(name, level, className, fees, status) {
+    const invoiceContent = generateInvoiceContent(name, level, className, fees, status);
+    printInvoiceWindow(invoiceContent);
+  }
+
   function printReport() {
+    // Hide everything except the table when printing
+    document.body.innerHTML = '<div class="report-container">' + document.querySelector('.report-container').innerHTML + '</div>';
+    // Trigger the print directly to print the table
     window.print();
+    // Reload the page to revert the changes
+    location.reload();
   }
 </script>
+
+
 
 <%- include("footer") -%>
