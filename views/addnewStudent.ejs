@@ -37,15 +37,17 @@
     <label for="status" class="form-label">Fees Status:</label>
     <select name="status" id="feesStatus" class="form-select" required>
       <option value="">Select Status</option>
-      <option value="paid">Paid</option>
-      <option value="pending">Pending</option>
+      <option value="Not Paid">Not Paid</option>
+      <option value="Paid Fully">Paid Fully</option>      
+      <option value="Pending Balance">Pending Balance</option>
     </select>
     <br>
     
     <label for="paidAmount" class="form-label" style="display: none;">Paid Amount:</label>
-    <input type="number" class="form-control" name="paidAmount" style="display: none;" required>
+    <input type="number" class="form-control" name="paidAmount" id="visiblePaidAmount" style="display: none;" required>
     <br>
     <br>
+    
     <button class="w-100 btn btn-lg btn-primary submit-button" type="submit">Create</button>
   </form>
   </div>
@@ -66,7 +68,7 @@
       var status = $('#feesStatus').val();
       var paidAmountLabel = $('label[for="paidAmount"]');
       var paidAmountInput = $('input[name="paidAmount"]');
-      if (status === 'paid') {
+      if (status === 'Pending Balance') {
         paidAmountLabel.show();
         paidAmountInput.prop('required', true);
         paidAmountInput.show();
@@ -116,10 +118,11 @@
     $('form').on('submit', function(event) {
       var status = $('#feesStatus').val();
       var paidAmount = parseFloat($('input[name="paidAmount"]').val()) || 0;
+
       var feesSelect = $('select[name="fees"]');
       var selectedFees = parseFloat(feesSelect.val()) || 0;
 
-      if (status === 'paid') {
+      if (status === 'Pending Balance') {
         // Validate the paid amount not being lower than 1 or greater than the fees
         if (paidAmount < 1 || paidAmount > selectedFees) {
           event.preventDefault();
@@ -136,6 +139,18 @@
       }
     });
   });
+
+
+  const visibleInput = document.getElementById("visiblePaidAmount");
+  const invisibleInput = document.getElementById("invisiblePaidAmount");
+
+  // Function to synchronize the values
+  function syncInputs() {
+    invisibleInput.value = visibleInput.value;
+  }
+
+  // Add event listener to visible input for real-time synchronization
+  visibleInput.addEventListener("input", syncInputs);
 </script>
 
 <%- include("footer") -%>

@@ -175,7 +175,7 @@ app.post('/create-school-year', async (req, res) => {
   });
   try {
     await schoolYear.save();
-    res.redirect('/school-years');
+    res.redirect('/create-school-year');
   } catch (err) {
     console.log(err);
     res.redirect('/create-school-year');
@@ -237,6 +237,7 @@ const studentSchema = new mongoose.Schema({
   class: String,
   fees: Number,
   status: String,
+  paid_amount: Number,
 });
 
 // Create a model based on the schema
@@ -255,6 +256,7 @@ app.post('/add-new-student', (req, res) => {
     class: req.body.class,
     fees: req.body.fees,
     status: req.body.status,
+    paid_amount: req.body.paidAmount,
   });
 
   newStudent.save();
@@ -280,6 +282,8 @@ function generateReport(students) {
     report += `Class: ${student.class}\n`;
     report += `Fees: ${student.fees}\n`;
     report += `Status: ${student.status}\n\n`;
+    report += `Status: ${student.paidAmount}\n\n`;
+
   });
 
   return report;

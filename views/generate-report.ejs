@@ -56,17 +56,20 @@
               <th>Name</th>
               <th>Level</th>
               <th>Class</th>
+              <th>Amount Paid</th>
               <th>Remaining Balance</th>
               <th>Status</th>
+            
             </tr>
           </thead>
           <tbody>
             <!-- Looping through the filtered students and display the data in rows -->
             <% students.forEach((student) => { %>
               <tr>
-                <td><a href="#" onclick="printInvoice('<%= student.name %>', '<%= student.level %>', '<%= student.class %>', <%= student.fees %>, '<%= student.status %>')"> <%= student.name %> </a></td>
+                <td><a href="#" onclick="printInvoice('<%= student.name %>', '<%= student.level %>', '<%= student.class %>', <%= student.paid_amount %>, <%= student.fees %>, '<%= student.status %>')"> <%= student.name %> </a></td>
                 <td><%= student.level %></td>
                 <td><%= student.class %></td>
+                <td data-fees="<%= student.paid_amount %>"><%= student.paid_amount %></td>
                 <td data-fees="<%= student.fees %>"><%= student.fees %></td>
                 <td><%= student.status %></td>
               </tr>
@@ -106,12 +109,13 @@
     }
   });
 
-  function generateInvoiceContent(name, level, className, fees, status) {
+  function generateInvoiceContent(name, level, className, paid_amount, fees, status) {
     const invoiceContent = `
     <div class="invoice-container">
       <h1>Invoice for ${name}</h1>
       <p>Level: ${level}</p>
       <p>Class: ${className}</p>
+      <p>Amount Paid: ${formatFeesAsCurrency(paid_amount)}</p>
       <p>Remaining Balance: ${formatFeesAsCurrency(fees)}</p>
       <p>Status: ${status}</p>
       <!-- Add any other invoice details you want to display -->
@@ -128,8 +132,8 @@
     invoiceWindow.print();
   }
 
-  function printInvoice(name, level, className, fees, status) {
-    const invoiceContent = generateInvoiceContent(name, level, className, fees, status);
+  function printInvoice(name, level, className, paid_amount, fees, status) {
+    const invoiceContent = generateInvoiceContent(name, level, className, paid_amount, fees, status);
     printInvoiceWindow(invoiceContent);
   }
 
