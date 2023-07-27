@@ -46,7 +46,13 @@
     <label for="paidAmount" class="form-label" style="display: none;">Paid Amount:</label>
     <input type="number" class="form-control" name="paidAmount" id="visiblePaidAmount" style="display: none;" required>
     <br>
-    <br>
+    
+      <!-- New Date Field -->
+  <label for="paymentDate" class="form-label" style="display: none;">Payment Date:</label>
+  <input type="date" class="form-control" name="paymentDate" id="visiblePaymentDate" style="display: none;" required>
+  <br>
+  <br>
+
     
     <button class="w-100 btn btn-lg btn-primary submit-button" type="submit">Create</button>
   </form>
@@ -151,6 +157,35 @@
 
   // Add event listener to visible input for real-time synchronization
   visibleInput.addEventListener("input", syncInputs);
+
+
+
+    // Get references to the relevant elements
+    const feesStatusSelect = document.getElementById('feesStatus');
+  const paidAmountField = document.getElementById('visiblePaidAmount');
+  const paymentDateField = document.getElementById('visiblePaymentDate');
+
+  // Function to show/hide the paidAmount and paymentDate fields
+  function updateFieldsVisibility() {
+    const selectedStatus = feesStatusSelect.value;
+    if (selectedStatus === 'Not Paid') {
+      paidAmountField.style.display = 'none';
+      paymentDateField.style.display = 'none';
+    } else if (selectedStatus === 'Paid Fully') {
+      paidAmountField.style.display = 'block';
+      paymentDateField.style.display = 'block';
+    } else if (selectedStatus === 'Pending Balance') {
+      paidAmountField.style.display = 'block';
+      paymentDateField.style.display = 'block';
+    }
+  }
+
+  // Attach event listener to the feesStatusSelect to update fields visibility
+  feesStatusSelect.addEventListener('change', updateFieldsVisibility);
+
+  // Initially call the function to set the visibility based on the initial value
+  updateFieldsVisibility();
+
 </script>
 
 <%- include("footer") -%>

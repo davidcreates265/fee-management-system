@@ -10,14 +10,14 @@
         <label for="level" class="form-label">Level:</label>
         <select class="form-control" name="level">
           <option value="">Select Level</option>
-          <option value="Primary School">Primary School</option>
-          <option value="Secondary School">Secondary School</option>
+          <option value="primary">Primary School</option>
+          <option value="secondary">Secondary School</option>
         </select>
       </div>
   
       <div class="form-group">
         <label for="class" class="form-label">Class:</label>
-        <select class="form-control" name="class">
+        <select class="form-control" name="studentClass">
           <option value="">Select Class</option>
           <option value="Grade 1">Grade 1</option>
           <option value="Grade 2">Grade 2</option>
@@ -37,8 +37,9 @@
         <label for="status" class="form-label">Fees Status:</label>
         <select class="form-control" name="status">
           <option value="">Select Status</option>
-          <option value="Paid">Paid</option>
-          <option value="Pending">Pending</option>
+          <option value="Not Paid">Not Paid</option>
+          <option value="Paid Fully">Paid Fully</option>
+          <option value="Pending Balance">Pending Balance</option>
         </select>
       </div>
       <br />
@@ -59,6 +60,7 @@
               <th>Amount Paid</th>
               <th>Remaining Balance</th>
               <th>Status</th>
+              <th>Date</th>
             
             </tr>
           </thead>
@@ -72,6 +74,22 @@
                 <td data-fees="<%= student.paid_amount %>"><%= student.paid_amount %></td>
                 <td data-fees="<%= student.fees %>"><%= student.fees %></td>
                 <td><%= student.status %></td>
+                <!-- Adding Date  -->
+<% if (student.status === 'Paid Fully' || student.status === 'Pending Balance') { %>
+  <td>
+    <% if (student.date_paid) { %>
+      <% const paymentDate = new Date(student.date_paid); %>
+      <%= paymentDate.toLocaleDateString() %>
+    <% } else { %>
+      N/A
+    <% } %>
+  </td>
+<% } else { %>
+  <td colspan="2">N/A</td>
+<% } %>
+
+
+              
               </tr>
             <% }); %>
           </tbody>
@@ -109,7 +127,21 @@
     }
   });
 
-  function generateInvoiceContent(name, level, className, paid_amount, fees, status) {
+  function generateInvoiceContent(name, level, className, paid_amount, fees, status, date_paid) {
+
+    // Helper function to format the date
+function formatInvoiceDate(date_paid) {
+  if (date_paid) {
+    const datePaid = new Date(date_paid);
+    return datePaid.toLocaleDateString();
+  }
+  return 'N/A';
+}
+
+const formattedDate = formatInvoiceDate(date_paid);
+
+
+
     const invoiceContent = `
     <div class="invoice-container">
       <h1>Invoice for ${name}</h1>
@@ -118,12 +150,18 @@
       <p>Amount Paid: ${formatFeesAsCurrency(paid_amount)}</p>
       <p>Remaining Balance: ${formatFeesAsCurrency(fees)}</p>
       <p>Status: ${status}</p>
+      <p>Date: ${formattedDate}</p>
+
+      
       <!-- Add any other invoice details you want to display -->
        </div>
     `;
-
+    console.log(invoiceContent);
     return invoiceContent;
+
   }
+
+
 
   function printInvoiceWindow(invoiceContent) {
     const invoiceWindow = window.open('', '_blank');
@@ -132,8 +170,8 @@
     invoiceWindow.print();
   }
 
-  function printInvoice(name, level, className, paid_amount, fees, status) {
-    const invoiceContent = generateInvoiceContent(name, level, className, paid_amount, fees, status);
+  function printInvoice(name, level, className, paid_amount, fees, status, date_paid) {
+    const invoiceContent = generateInvoiceContent(name, level, className, paid_amount, fees, status, date_paid);
     printInvoiceWindow(invoiceContent);
   }
 

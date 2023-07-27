@@ -238,6 +238,7 @@ const studentSchema = new mongoose.Schema({
   fees: Number,
   status: String,
   paid_amount: Number,
+  date_paid: Date,
 });
 
 // Create a model based on the schema
@@ -257,6 +258,7 @@ app.post('/add-new-student', (req, res) => {
     fees: req.body.fees,
     status: req.body.status,
     paid_amount: req.body.paidAmount,
+    date_paid: req.body.paymentDate,
   });
 
   newStudent.save();
@@ -283,6 +285,7 @@ function generateReport(students) {
     report += `Fees: ${student.fees}\n`;
     report += `Status: ${student.status}\n\n`;
     report += `Status: ${student.paidAmount}\n\n`;
+    report += `Status: ${student.paymentDate}\n\n`;
 
   });
 
@@ -291,7 +294,9 @@ function generateReport(students) {
 
 app.post('/generate-report', async (req, res) => {
   try {
-    const { level, class: studentClass, status } = req.body;
+    const { level, studentClass, status } = req.body; // Destructure the values directly from req.body
+
+    console.log(level, studentClass, status); // Just for debugging purposes
 
     let query = {};
 
@@ -300,7 +305,7 @@ app.post('/generate-report', async (req, res) => {
     }
 
     if (studentClass) {
-      query.class = studentClass;
+      query.class = studentClass; // Use studentClass instead of class
     }
 
     if (status) {
