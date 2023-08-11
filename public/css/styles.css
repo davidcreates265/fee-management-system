@@ -575,3 +575,21 @@ padding-top: 120px;
 .invoice-container .btn:hover {
   background-color: #0056b3; /* Set the button background color on hover */
 }
+
+
+
+.invoice-title h2, .invoice-title h3 {
+  display: inline-block;
+}
+
+.table > tbody > tr > .no-line {
+  border-top: none;
+}
+
+.table > thead > tr > .no-line {
+  border-bottom: none;
+}
+
+.table > tbody > tr > .thick-line {
+  border-top: 2px solid;
+}

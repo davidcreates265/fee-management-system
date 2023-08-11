@@ -143,18 +143,76 @@ const formattedDate = formatInvoiceDate(date_paid);
 
 
     const invoiceContent = `
-    <div class="invoice-container">
-      <h1>Invoice for ${name}</h1>
-      <p>Level: ${level}</p>
-      <p>Class: ${className}</p>
-      <p>Amount Paid: ${formatFeesAsCurrency(paid_amount)}</p>
-      <p>Remaining Balance: ${formatFeesAsCurrency(fees)}</p>
-      <p>Status: ${status}</p>
-      <p>Date: ${formattedDate}</p>
-
+    <div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+    		<div class="invoice-title">
+    			<h2>Invoice</h2><h3 class="pull-right">Order # 12345 for ${name}</h3>
+    		</div>
+    		<hr>
+    		<div class="row">
+    			<div class="col-xs-6">
+    				<address>
+    				<strong>Billed To:</strong><br>
+            ${name}<br>
+    					1234 Main<br>
+    					Apt. 4B<br>
+    					Springfield, ST 54321
+    				</address>
+    			</div>
+    			
+    		</div>
+    		<div class="row">
+    			<div class="col-xs-6">
+    				<address>
+    					<strong>Payment Method:</strong><br>
+    					Cash
+    				</address>
+    			</div>
+    			<div class="col-xs-6 text-right">
+    				<address>
+    					<strong>Order Date:</strong><br>
+    					${formattedDate}<br><br>
+    				</address>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    
+    <div class="row">
+    	<div class="col-md-12">
+    		<div class="panel panel-default">
+    			<div class="panel-heading">
+    				<h3 class="panel-title"><strong>Order summary</strong></h3>
+    			</div>
+    			<div class="panel-body">
+    				<div class="table-responsive">
+    					<table class="table table-condensed">
+    						<thead>
+                                <tr>
+        							<td><strong>Class</strong></td>&nbsp;&nbsp;&nbsp; 
+        							<td class="text-center"><strong>Paid</strong></td>&nbsp;&nbsp;&nbsp;
+        							<td class="text-center"><strong>Remaining</strong></td>&nbsp;&nbsp;&nbsp;
+        							<td class="text-right"><strong>Status</strong></td>&nbsp;&nbsp;&nbsp;&nbsp;
+                                </tr>
+    						</thead>
+              
+    						<tbody>
+    							<!-- foreach ($order->lineItems as $line) or some such thing here -->
+    							<tr>
+    								<td>${className}</td>&nbsp;&nbsp;&nbsp;
+    								<td class="text-center">${formatFeesAsCurrency(paid_amount)}</td>&nbsp;&nbsp;&nbsp;
+    								<td class="text-center">${formatFeesAsCurrency(fees)}</td>&nbsp;&nbsp;&nbsp;
+    								<td class="text-right">${status}</td>&nbsp;&nbsp;&nbsp;
+    							</tr>
+                                
       
-      <!-- Add any other invoice details you want to display -->
-       </div>
+
+    						</tbody>
+    					</table>
+    				</div>
+            </div>
+            </div>
     `;
     console.log(invoiceContent);
     return invoiceContent;
