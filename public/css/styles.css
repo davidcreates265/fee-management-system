@@ -168,6 +168,18 @@ color: #fff;
   background-color: #1d4e89;
 }
 
+.submit-button2 {
+  background-color: #0088C2;
+  border: none;
+  margin-top: 10px;
+}
+
+.submit-button2:hover {
+cursor: pointer;
+color: #ffffff;
+background-color: #1d4e89;
+}
+
 .loginHeadText {
     color:#1d4e89;
     text-align: center;
@@ -592,4 +604,20 @@ padding-top: 120px;
 
 .table > tbody > tr > .thick-line {
   border-top: 2px solid;
+}
+
+/* Edit Payment Section **/
+
+.editTable1 {
+  margin-top: 150px;
+}
+
+.editTable2 {
+  margin-top: 150px;
+  margin-left: 10px;
+  text-align: center;
+}
+
+.editStudentFields {
+  padding-bottom: 20px;
 }

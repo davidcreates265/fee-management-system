@@ -346,10 +346,69 @@ app.get('/download-report', (req, res) => {
 });
 
 
+app.get('/edit-student/:id', async (req, res) => {
+  try {
+    const student = await Student.findById(req.params.id);
+    res.render('editStudent', { student });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while fetching student data.');
+  }
+});
+
+
+app.post('/edit-student/:id', async (req, res) => {
+  try {
+    const { name, age, gender, level, studentClass, fees, status, paidAmount, paymentDate } = req.body;
+    
+    // Fetch the student from the database by ID
+    const student = await Student.findById(req.params.id);
+
+    // Calculate the new fees based on the paidAmount and the previous fees
+    const newFees = student.fees - paidAmount;
+
+    // Update the student's information, including the "fees" field
+    await Student.findByIdAndUpdate(req.params.id, {
+      name,
+      age,
+      gender,
+      level,
+      class: studentClass,
+      fees: newFees, // Update the fees field
+      status,
+      paid_amount: paidAmount,
+      date_paid: paymentDate
+    });
+
+    res.redirect('/payments'); // Redirect to the payments page after saving changes
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while updating student data.');
+  }
+});
+
+
+app.get('/payments', async (req, res) => {
+  try {
+    const students = await Student.find(); // Fetch all students from the database
+    res.render('payments', { students }); // Pass the students data to the view
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while fetching student data.');
+  }
+});
+
+
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 3000;
 }
+
+
+app.get('/payments', (req, res) => {
+  res.render('payments');
+});
+
 
 app.listen(port, function() {
   console.log("Server has started successfully");

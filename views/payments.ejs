@@ -1,0 +1,41 @@
+<%- include("header") -%>
+
+<div class="table-responsive">
+  <table class="table table-striped editTable1">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Level</th>
+        <th>Class</th>
+        <th>Fees</th>
+        <th>Status</th>
+        <th>Paid Amount</th>
+        <th>Payment Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% students.forEach(function(student) { %>
+        <tr>
+          <td><%= student.name %></td>
+          <td><%= student.age %></td>
+          <td><%= student.gender %></td>
+          <td><%= student.level %></td>
+          <td><%= student.class %></td>
+          <td><%= student.fees %></td>
+          <td><%= student.status %></td>
+          <td><%= student.paid_amount %></td>
+          <td><%= student.date_paid ? student.date_paid.toISOString().split('T')[0] : '' %></td>
+          <td>
+            <a href="/edit-student/<%= student._id %>">Edit</a>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+
+
+
