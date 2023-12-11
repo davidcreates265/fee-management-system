@@ -21,7 +21,7 @@ app.use(session({
 // Setting up middleware to parse request body
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Connect to MongoDB 
+// Connecting to MongoDB 
 mongoose.connect("mongodb+srv://davidcreatesmw:mongoCONNECTTESTING..@cluster0.ovd5cfm.mongodb.net/feeManagementSystemDB", { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('Could not connect to MongoDB', err));
@@ -56,7 +56,7 @@ app.post('/login', async (req, res) => {
         role: user.role,
       };
 
-      // Redirecting user to the appropriate dashboard based on role
+      // Redirecting user to the appropriate dashboard based on their role
       if (user.role === 'admin') {
         res.redirect('/dashboard/admin');
       } else if (user.role === 'principal') {
@@ -119,12 +119,12 @@ app.post('/create-user', async (req, res) => {
   const {name, email, password, role } = req.body;
   console.log(req.body);
   try {
-    // Check if user with same email already exists in database
+    // Checking if user with same email already exists in database
     const userExists = await User.findOne({ email: email });
     if (userExists) {
       return res.render('create-user', { error: 'User already exists with this email' });
     }
-    // Create a new user object
+    // Creating a new user object
     const newUser = new User({
       name,
       email,
@@ -228,7 +228,7 @@ app.delete('/school-year/delete/:id', async (req, res) => {
 });
 
 
-// Define a schema for the student model
+// Defining the schema for the student model
 const studentSchema = new mongoose.Schema({
   name: String,
   age: Number,
@@ -241,7 +241,7 @@ const studentSchema = new mongoose.Schema({
   date_paid: Date,
 });
 
-// Create a model based on the schema
+// Creating a model based on the schema
 const Student = mongoose.model('Student', studentSchema);
 
 app.get('/add-new-student', (req, res) => {
@@ -273,7 +273,7 @@ app.get('/generate-report', (req, res) => {
 });
 
 
-// Function to generate the report
+// Function for generating reports
 function generateReport(students) {
   let report = 'Report:\n\n';
 
@@ -294,9 +294,9 @@ function generateReport(students) {
 
 app.post('/generate-report', async (req, res) => {
   try {
-    const { level, studentClass, status } = req.body; // Destructure the values directly from req.body
+    const { level, studentClass, status } = req.body; // Destructuring the values directly from req.body
 
-    console.log(level, studentClass, status); // Just for debugging purposes
+    console.log(level, studentClass, status); // debugging purposes
 
     let query = {};
 
@@ -305,7 +305,7 @@ app.post('/generate-report', async (req, res) => {
     }
 
     if (studentClass) {
-      query.class = studentClass; // Use studentClass instead of class
+      query.class = studentClass; 
     }
 
     if (status) {
@@ -335,13 +335,13 @@ app.post('/generate-report', async (req, res) => {
 app.get('/download-report', (req, res) => {
   const report = req.query.report;
 
-  // Set the content type as plain text
+  // Setting the content type as plain text
   res.set('Content-Type', 'text/plain');
 
-  // Set the content disposition header to trigger a download
+  // Setting the content disposition header to trigger a download
   res.set('Content-Disposition', 'attachment; filename="report.txt"');
 
-  // Send the report as the response
+  // Sending the report as the response
   res.send(report);
 });
 
@@ -361,26 +361,26 @@ app.post('/edit-student/:id', async (req, res) => {
   try {
     const { name, age, gender, level, studentClass, fees, status, paidAmount, paymentDate } = req.body;
     
-    // Fetch the student from the database by ID
+    // Fetchong the student from the database by ID
     const student = await Student.findById(req.params.id);
 
-    // Calculate the new fees based on the paidAmount and the previous fees
+    // Calculating the new fees based on the paidAmount and the previous fees
     const newFees = student.fees - paidAmount;
 
-    // Update the student's information, including the "fees" field
+    // Updating the student's information, including the "fees" field
     await Student.findByIdAndUpdate(req.params.id, {
       name,
       age,
       gender,
       level,
       class: studentClass,
-      fees: newFees, // Update the fees field
+      fees: newFees, // Updating the fees field
       status,
       paid_amount: paidAmount,
       date_paid: paymentDate
     });
 
-    res.redirect('/payments'); // Redirect to the payments page after saving changes
+    res.redirect('/payments'); // Redirecting to the payments page after saving changes
   } catch (error) {
     console.error(error);
     res.status(500).send('An error occurred while updating student data.');
@@ -390,8 +390,8 @@ app.post('/edit-student/:id', async (req, res) => {
 
 app.get('/payments', async (req, res) => {
   try {
-    const students = await Student.find(); // Fetch all students from the database
-    res.render('payments', { students }); // Pass the students data to the view
+    const students = await Student.find(); // Fetching all students from the database
+    res.render('payments', { students }); // Passing the students data to the view
   } catch (error) {
     console.error(error);
     res.status(500).send('An error occurred while fetching student data.');
